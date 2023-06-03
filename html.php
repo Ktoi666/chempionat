@@ -1,6 +1,3 @@
-<?php
-require "dbconnect.php";
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,92 +5,96 @@ require "dbconnect.php";
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Document</title>
+    <title>60921fdd_test</title>
     <style>
-        body{
-            max-width: 1100px;
-        }
-        *{
-            font-family: Arial;
-            margin: 0 auto;
-        }
-        .item{
 
-            background-color: palegreen;
-            margin: 20px;
+        body {
+            ;
+        }
+
+        th, td {
             padding: 10px;
-            border-radius: 10px;
+        }
 
+        th {
+            background: #606060;
+            color: #fff;
+        }
+
+        td {
+            background: #b5b5b5;
+        }
+
+        .header {
+            background-color: darkgray;
+            width: 100%;
+            height: 90px;
+        }
+
+        .header-item {
+            padding-top: 10px;
+            padding-left: 10px;
+
+        .content {
+            width: 100%;
+            min-height: 800px;
+        }
+
+        .inner-content {
+            margin-left: 30px;
+        }
 
         }
-        .name{
-            vertical-align: top;
-            width: 20%;
-            max-width: 250px;
-            display: inline-block;
-        }
-        .props{
-            vertical-align: top;
-            width: 57%;
-            display: inline-block;
-        }
-        .price{
-            vertical-align: top;
-            width: 10%;
-            max-width: 150px;
-            display: inline-block;
-            font-weight: bold ;
-            text-align: right;
-            font-size: large;
-            margin-right: 15px;
-        }
-        .image{
-            width: 10%;
-            display: inline-block;
-        }
-        .bin-button{
-            align: right;
-            padding: 10px;
-            margin: 5px;
-            border-radius: 8px;
-            border-width: 1px;
-            border-color: green;
-            width: 120px;
+        table {
+            margin-left: 20px;
+            margin-top: 20px;
         }
 
     </style>
 </head>
 <body>
-<h1>Веб-приложение гр. 609-21з</h1>
 
-<?php
-echo "<h2>чепионат по футболу</h2>";
-
-$result = $conn->query("SELECT * FROM items");
-
-while ($row = $result->fetch()){
-    ?>
-    <div class="item">
-        <div class="image">
-            <img src="images/item.png" width="60px">
-        </div>
-        <div class="name">
-            <?=$row['name']?>
-        </div>
-        <div class="props">
-            <?=$row['properties']?>
-        </div>
-        <div class="price">
-            <?=$row['price']?>
-            <button class="bin-button"><i class="fa fa-cart-plus"></i>&nbsp&nbsp В корзину</button>
+    <div class="header">
+        <div class="inner-header">
+            <div class="header-item">
+                <b>Веб-приложение гр. 609-21з <br></b>
+                <b>Тема: Чемпионат по футболу<br></b>
+                <b>Автор: Лозинский Д.А.</b>
+            </div>
         </div>
     </div>
-    <?php
+    <div class="content">
+        <div class="inner-content">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>команда</th>
+                    <th>игроки</th>
+                    <th>матч</th>
+                    <th>гол</th>
+                </tr>
 
-}
-?>
+                <?php
+
+                require "dbconnect.php";
+                $result = $conn->query("SELECT comand.id, comand.name FROM comand, players WHERE comand.id_players=subj.id GROUP BY comand.id;");
+                $result_subj = $conn->query("SELECT players.name FROM comand, players WHERE comand.id_players=plyers.id GROUP BYcomand.id;");
+                while ($row = $result->fetch() and $row_subj = $result_subj->fetch()) {
+                    ?>
+
+                    <tr>
+                        <th><?=$row['id']?></th>
+                        <th><?=$row['name']?></th>
+                        <th><?=$row_subj['name']?></th>
+                        <th><?=$row['price']?></th>
+                    </tr>
+
+                    <?php
+                }
+                ?>
+            </table>
+        </div>
+    </div>
 
 
 </body>
